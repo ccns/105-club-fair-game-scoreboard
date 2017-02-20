@@ -34,10 +34,7 @@ function getUser(name, callback) {
 function updateUser(user, flag, callback) {
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
-    var fcollection = db.collection('flags');
-    fcollection.updateOne({"flag": flag.flag}, {
-      $set: { solved: flag.solved+1 }
-    },function() {
+    if(flag==-1) {
       var collection = db.collection('scores');
       collection.updateOne({"name": user.name}, {
         $set: {
@@ -45,7 +42,20 @@ function updateUser(user, flag, callback) {
           score: user.score
         }
       }, callback);
-    });
+    } else {
+      var fcollection = db.collection('flags');
+      fcollection.updateOne({"flag": flag.flag}, {
+        $set: { solved: flag.solved+1 }
+      },function() {
+        var collection = db.collection('scores');
+        collection.updateOne({"name": user.name}, {
+          $set: {
+            solved: user.solved,
+            score: user.score
+          }
+        }, callback);
+      });
+    }
   })
 }
 

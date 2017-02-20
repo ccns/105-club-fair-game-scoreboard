@@ -12,58 +12,104 @@ app.get('/api/submit', function(req, res) {
   resp.status = -1;
   resp.msg = 'Not yet send query.';
   if (typeof id !== 'undefined' && id !== '') {
-    db.checkFlag(flag, function(f) {
-      if(f.length > 0) {
-        f = f[0];
-        db.getUser(id, function(u) {
-          if(u.length == 1) {
-            u = u[0];
-            if(u.solved.indexOf(f.type+"-"+f.no)!=-1) {
-              // Have been solved.
-              resp.status = 3;
-              resp.msg = 'Duplicate submit.';
+    if(flag.indexOf(':')>-1) {
+      db.getUser(id, function(u) {
+        if(u.length == 1) {
+          u = u[0];
+          if(u.solved.indexOf("3-1")!=-1) {
+            // Have been solved.
+            resp.status = 3;
+            resp.msg = 'Duplicate submit.';
+            res.jsonp(resp);
+          } else {
+            // Solve! push solved and add score
+            u.solved.push("3-1");
+            u.score += 3;
+            db.updateUser(u, -1, function(){
+              resp.status = 0;
+              resp.msg = 'Success!';
               res.jsonp(resp);
-            } else {
-              // Solve! push solved and add score
-              u.solved.push(f.type+"-"+f.no);
-              u.score += f.score;
-              db.updateUser(u, f, function(){
-                resp.status = 0;
-                resp.msg = 'Success!';
-                res.jsonp(resp);
-              });
-            }
-          } else if(u.length == 0) {
-            // user not found.
-            db.addUser(id, function() {
-              db.getUser(id, function(u) {
-                u = u[0];
-                if(u.solved.indexOf(f.type+"-"+f.no)!=-1) {
-                  // Have been solved.
-                  resp.status = 3;
-                  resp.msg = 'Duplicate submit.';
-                  res.jsonp(resp);
-                } else {
-                  // Solve! push solved and add score
-                  u.solved.push(f.type+"-"+f.no);
-                  u.score += f.score;
-                  db.updateUser(u, f, function(){
-                    resp.status = 0;
-                    resp.msg = 'Success!';
-                    res.jsonp(resp);
-                  });
-                }
-              });
-            })
+            });
           }
-        })
-      } else {
-        // flag not found.
-        resp.status = 1;
-        resp.msg = 'Flag not found.';
-        res.jsonp(resp);
-      }
-    })
+        } else if(u.length == 0) {
+          // user not found.
+          db.addUser(id, function() {
+            db.getUser(id, function(u) {
+              u = u[0];
+              if(u.solved.indexOf(f.type+"-"+f.no)!=-1) {
+                // Have been solved.
+                resp.status = 3;
+                resp.msg = 'Duplicate submit.';
+                res.jsonp(resp);
+              } else {
+                // Solve! push solved and add score
+                u.solved.push(f.type+"-"+f.no);
+                u.score += f.score;
+                db.updateUser(u, f, function(){
+                  resp.status = 0;
+                  resp.msg = 'Success!';
+                  res.jsonp(resp);
+                });
+              }
+            });
+          })
+        }
+      })
+    } else {
+      db.checkFlag(flag, function(f) {
+        if(f.length > 0) {
+          f = f[0];
+          console.log(f);
+          db.getUser(id, function(u) {
+            if(u.length == 1) {
+              u = u[0];
+              if(u.solved.indexOf(f.type+"-"+f.no)!=-1) {
+                // Have been solved.
+                resp.status = 3;
+                resp.msg = 'Duplicate submit.';
+                res.jsonp(resp);
+              } else {
+                // Solve! push solved and add score
+                u.solved.push(f.type+"-"+f.no);
+                u.score += f.score;
+                db.updateUser(u, f, function(){
+                  resp.status = 0;
+                  resp.msg = 'Success!';
+                  res.jsonp(resp);
+                });
+              }
+            } else if(u.length == 0) {
+              // user not found.
+              db.addUser(id, function() {
+                db.getUser(id, function(u) {
+                  u = u[0];
+                  if(u.solved.indexOf(f.type+"-"+f.no)!=-1) {
+                    // Have been solved.
+                    resp.status = 3;
+                    resp.msg = 'Duplicate submit.';
+                    res.jsonp(resp);
+                  } else {
+                    // Solve! push solved and add score
+                    u.solved.push(f.type+"-"+f.no);
+                    u.score += f.score;
+                    db.updateUser(u, f, function(){
+                      resp.status = 0;
+                      resp.msg = 'Success!';
+                      res.jsonp(resp);
+                    });
+                  }
+                });
+              })
+            }
+          })
+        } else {
+          // flag not found.
+          resp.status = 1;
+          resp.msg = 'Flag not found.';
+          res.jsonp(resp);
+        }
+      })
+    }
   } else {
     resp.status = 1;
     resp.msg = 'ID not set!';
