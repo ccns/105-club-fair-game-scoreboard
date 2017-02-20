@@ -1,0 +1,7 @@
+{
+  "mongo": {
+    "url": "localhost:27017/clubfair-game",
+    "user": "",
+    "pwd": ""
+  }
+}

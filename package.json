@@ -1,0 +1,24 @@
+{
+  "name": "106-club-fair-game-scoreboard",
+  "version": "1.0.0",
+  "description": "scoreboard",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccns/106-club-fair-game-scoreboard.git"
+  },
+  "author": "Daniel Chen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ccns/106-club-fair-game-scoreboard/issues"
+  },
+  "homepage": "https://github.com/ccns/106-club-fair-game-scoreboard#readme",
+  "dependencies": {
+    "config": "^1.25.1",
+    "express": "^4.14.1",
+    "mongodb": "^2.2.24"
+  }
+}
