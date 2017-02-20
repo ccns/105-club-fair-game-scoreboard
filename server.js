@@ -36,16 +36,16 @@ app.get('/api/submit', function(req, res) {
           db.addUser(id, function() {
             db.getUser(id, function(u) {
               u = u[0];
-              if(u.solved.indexOf(f.type+"-"+f.no)!=-1) {
+              if(u.solved.indexOf("3-1")!=-1) {
                 // Have been solved.
                 resp.status = 3;
                 resp.msg = 'Duplicate submit.';
                 res.jsonp(resp);
               } else {
                 // Solve! push solved and add score
-                u.solved.push(f.type+"-"+f.no);
-                u.score += f.score;
-                db.updateUser(u, f, function(){
+                u.solved.push("3-1");
+                u.score += 3;
+                db.updateUser(u, -1, function(){
                   resp.status = 0;
                   resp.msg = 'Success!';
                   res.jsonp(resp);
