@@ -1,9 +1,15 @@
+var path = require('path');
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var db = require('./db');
 
 app.set('port', process.env.PORT || 3000);
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res) {
+  res.sendfile("index.html");
+});
 
 app.get('/api/submit', function(req, res) {
   var id = req.query.id;
