@@ -19,6 +19,7 @@
   "dependencies": {
     "config": "^1.25.1",
     "express": "^4.14.1",
+    "jsonfile": "^2.4.0",
     "mongodb": "^2.2.24"
   }
 }
