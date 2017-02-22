@@ -7,8 +7,8 @@ var db = require('./db');
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res) {
-  res.sendfile("index.html");
+app.get('/', function(req, res) {
+  res.sendFile("index.html");
 });
 
 app.get('/api/submit', function(req, res) {
