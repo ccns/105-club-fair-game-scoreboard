@@ -85,3 +85,4 @@ function resetSubmit() {
   $("#submit-btn").addClass("btn-default");
   $("#submit-btn").text("Submit!");
 }
+
