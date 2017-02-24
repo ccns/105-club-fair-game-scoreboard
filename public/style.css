@@ -65,7 +65,7 @@ a, div, button {
 	margin-top: 5px;
 }
 
-#problems .type, #problems .no, #problems .score {
+#problems .type, #problems .no, #problems .score, #problems .solved {
 	width: 40px;
 }
 

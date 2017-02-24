@@ -28,11 +28,12 @@ $.ajax({
       var divNo = $('<div class="no"></div>').text(d.no);
       var divTitle = $('<div class="title"></div>').text(d.title);
       var divScore = $('<div class="score"></div>').text(d.score);
+      var divSolved = $('<div class="solved"></div>').text(d.solved);
 
       var detail = "https://github.com/ccns/106-club-fair-game-problems/tree/master/"+d.type+"/"+d.no;
       var divDetail = $('<div class="detail"></div>').append($('<a target="_blank"><button class="btn btn-default">Detail</button></a>').attr("href", detail));
 
-      var divBody = $('<div class="body"></div>').append(divType).append(divNo).append(divTitle).append(divScore).append(divDetail);
+      var divBody = $('<div class="body"></div>').append(divType).append(divNo).append(divTitle).append(divScore).append(divSolved).append(divDetail);
       $("#problems").append(divBody);
     }
   }
