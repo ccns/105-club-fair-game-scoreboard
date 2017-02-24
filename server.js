@@ -34,6 +34,7 @@ app.get('/api/submit', function(req, res) {
             db.updateUser(u, -1, function(){
               resp.status = 0;
               resp.msg = 'Success!';
+              resp.data = u;
               res.jsonp(resp);
             });
           }
@@ -54,6 +55,7 @@ app.get('/api/submit', function(req, res) {
                 db.updateUser(u, -1, function(){
                   resp.status = 0;
                   resp.msg = 'Success!';
+                  resp.data = u;
                   res.jsonp(resp);
                 });
               }
@@ -81,6 +83,7 @@ app.get('/api/submit', function(req, res) {
                 db.updateUser(u, f, function(){
                   resp.status = 0;
                   resp.msg = 'Success!';
+                  resp.data = u;
                   res.jsonp(resp);
                 });
               }
@@ -101,6 +104,7 @@ app.get('/api/submit', function(req, res) {
                     db.updateUser(u, f, function(){
                       resp.status = 0;
                       resp.msg = 'Success!';
+                      resp.data = u;
                       res.jsonp(resp);
                     });
                   }

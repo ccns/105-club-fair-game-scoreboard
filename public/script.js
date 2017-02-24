@@ -1,3 +1,5 @@
+var expanded = false;
+
 $.ajax({
   type: "GET",
   url: "http://ctc.ccns.ncku.edu.tw/api/rank",
@@ -13,10 +15,13 @@ $.ajax({
       if(i>=limit) divBody.hide();
       $("#scoreboard").append(divBody);
     }
-    var btnMore = $('<button id="more-btn" class="btn btn-default">More...</button>').click(function() {
-      $("#scoreboard :hidden").show();
-      $(this).hide();
-    })
+    if(data.length > 5) {
+      var btnMore = $('<button id="more-btn" class="btn btn-default">More...</button>').click(function() {
+        $("#scoreboard :hidden").show();
+        $(this).hide();
+        expanded = true;
+      })
+    }
     $("#scoreboard").append(btnMore);
   }
 });
@@ -66,6 +71,10 @@ $("#submit-btn").click(function() {
         } else {
           $("#submit-btn").addClass("btn-success");
           $("#submit-btn").text("Correct!");
+          var data = res.data;
+          $("#scoreboard>.body").filter(function() {
+            return $(this).find(".name").text() === data.name;
+          }).find(".score").text(data.score);
         }
         $("#submit-btn").removeClass("btn-default");
         setInterval(resetSubmit, 3000);
