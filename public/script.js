@@ -21,6 +21,8 @@ $.ajax({
         $(this).hide();
         expanded = true;
       })
+    } else {
+      expanded = true;
     }
     $("#scoreboard").append(btnMore);
   }
@@ -72,9 +74,18 @@ $("#submit-btn").click(function() {
           $("#submit-btn").addClass("btn-success");
           $("#submit-btn").text("Correct!");
           var data = res.data;
-          $("#scoreboard>.body").filter(function() {
+          var div = $("#scoreboard>.body").filter(function() {
             return $(this).find(".name").text() === data.name;
-          }).find(".score").text(data.score);
+          });
+          if(div.length)
+            div.find(".score").text(data.score);
+          else {
+            var divName = $('<div class="name"></div>').text(data.name);
+            var divScore = $('<div class="score"></div>').text(data.score);
+            var divBody = $('<div class="body"></div>').append(divName).append(divScore);
+            $("#scoreboard").append(divBody);
+          }
+          sortScoreboard();
         }
         $("#submit-btn").removeClass("btn-default");
         setInterval(resetSubmit, 3000);
@@ -101,3 +112,14 @@ function resetSubmit() {
   $("#submit-btn").text("Submit!");
 }
 
+function sortScoreboard() {
+  $("#scoreboard>.body").sort(function (a, b) {
+    var contentA = parseInt( $(a).find(".score").text());
+    var contentB = parseInt( $(b).find(".score").text());
+    return (contentA < contentB) ? 1 : (contentA > contentB) ? -1 : 0;
+  }).appendTo("#scoreboard");
+  if(!expanded) $("#scoreboard>.body").each(function(i) {
+    if(i<5) $(this).show();
+    else $(this).hide();
+  });
+}
