@@ -13,10 +13,17 @@ var jsonfile = require('jsonfile')
 var file = 'parser/problems.json'
 
 jsonfile.readFile(file, function(err, obj) {
-  console.dir(obj)
+  obj.map(function(o) {
+    o.score = parseInt(o.score);
+    o.solved = parseInt(o.solved);
+    return o;
+  })
+  console.dir(obj);
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
     var collection = db.collection('flags');
+    collection.remove();
     collection.insertMany(obj);
+    db.close();
   })
 })

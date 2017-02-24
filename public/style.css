@@ -73,7 +73,7 @@ a, div, button {
 	width: 58px;
 }
 
-#problems .no, #problems .score, #problems .detail {
+#problems .no, #problems .score, #problems .detail, #problems .solved {
 	text-align: center;
 }
 
