@@ -4,15 +4,20 @@ $.ajax({
   dataType: "jsonp",
   success: function(res) {
     var data = res.data;
-    var cntdown = 5;
+    var limit = 5;
     for(i in data) {
-      if(cntdown-- == 0) break;
       var d = data[i];
       var divName = $('<div class="name"></div>').text(d.name);
       var divScore = $('<div class="score"></div>').text(d.score);
       var divBody = $('<div class="body"></div>').append(divName).append(divScore);
+      if(i>=limit) divBody.hide();
       $("#scoreboard").append(divBody);
     }
+    var btnMore = $('<button id="more-btn" class="btn btn-default">More...</button>').click(function() {
+      $("#scoreboard :hidden").show();
+      $(this).hide();
+    })
+    $("#scoreboard").append(btnMore);
   }
 });
 

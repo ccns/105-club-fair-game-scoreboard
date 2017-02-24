@@ -35,7 +35,7 @@ a, div, button {
 	width: 240px;
 }
 
-#submit #submit-btn {
+#submit #submit-btn, #scoreboard #more-btn {
 	font-size: 15px;
 	height: 28px;
 	padding: 1px 12px;
