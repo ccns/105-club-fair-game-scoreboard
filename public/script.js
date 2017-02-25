@@ -127,6 +127,6 @@ function sortScoreboard() {
       else $(this).hide();
     });
   } else {
-    $("#more-btn").appenTo("#scoreboard");
+    $("#scoreboard").append($("#more-btn"))
   }
 }
