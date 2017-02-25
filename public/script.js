@@ -126,7 +126,6 @@ function sortScoreboard() {
       if(i<5) $(this).show();
       else $(this).hide();
     });
-  } else {
     $("#scoreboard").append($("#more-btn"))
   }
 }
