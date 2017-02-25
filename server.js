@@ -114,7 +114,7 @@ app.get('/api/submit', function(req, res) {
           })
         } else {
           // flag not found.
-          resp.status = 1;
+          resp.status = 2;
           resp.msg = 'Flag not found.';
           res.jsonp(resp);
         }

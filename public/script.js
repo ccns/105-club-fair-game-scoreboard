@@ -65,6 +65,9 @@ $("#submit-btn").click(function() {
         var status = res.status;
         if(status == 1) {
           $("#submit-btn").addClass("btn-warning");
+          $("#submit-btn").text("Name Invalid!");
+        } else if(status == 2) {
+          $("#submit-btn").addClass("btn-warning");
           $("#submit-btn").text("Wrong!");
         } else if(status == 3) {
           // dup submit
@@ -118,8 +121,12 @@ function sortScoreboard() {
     var contentB = parseInt( $(b).find(".score").text());
     return (contentA < contentB) ? 1 : (contentA > contentB) ? -1 : 0;
   }).appendTo("#scoreboard");
-  if(!expanded) $("#scoreboard>.body").each(function(i) {
-    if(i<5) $(this).show();
-    else $(this).hide();
-  });
+  if(!expanded) {
+    $("#scoreboard>.body").each(function(i) {
+      if(i<5) $(this).show();
+      else $(this).hide();
+    });
+  } else {
+    $("#more-btn").appenTo("#scoreboard");
+  }
 }
