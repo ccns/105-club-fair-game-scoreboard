@@ -35,6 +35,7 @@ $.ajax({
   success: function(res) {
     var data = res.data;
     for(i in data) {
+      if(!i) continue;
       var d = data[i];
       var divType = $('<div class="type"></div>').text(d.typeName);
       var divNo = $('<div class="no"></div>').text(d.no);
