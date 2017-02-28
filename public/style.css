@@ -16,11 +16,12 @@ a, div, button {
 
 #scoreboard .name, #scoreboard .score {
 	display: inline-block;
+ overflow-x: hidden;
 }
 
 #scoreboard .name {
 	width: 100px;
- overflow: hidden;
+ margin-right: 5px;
 }
 
 #submit #submit-flag {
