@@ -35,7 +35,7 @@ $.ajax({
   success: function(res) {
     var data = res.data;
     for(i in data) {
-      if(!i) continue;
+      if(i==0) continue;
       var d = data[i];
       var divType = $('<div class="type"></div>').text(d.typeName);
       var divNo = $('<div class="no"></div>').text(d.no);
@@ -56,11 +56,14 @@ $("#submit-btn").click(function() {
   var name = $("#submit-name").val();
   var flag = $("#submit-flag").val();
 
+  var data = {id: name, flag: flag};
+
   console.log(flag);
   if(flag.match(":") === null) {
     $.ajax({
       type: "GET",
-      url: "http://ctc.ccns.ncku.edu.tw/api/submit?id="+name+"&flag="+flag,
+      data: data,
+      url: "http://ctc.ccns.ncku.edu.tw/api/submit",
       dataType: "jsonp",
       success: function(res) {
         var status = res.status;
