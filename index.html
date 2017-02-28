@@ -10,6 +10,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script src="jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"></script>
 
 		<link type="image/x-icon" rel="icon" href="">
 		<title>Catch the Chicken</title>
@@ -54,5 +55,11 @@
 		</div>
     <!-- CHICKEN:You can't see me!:ATTACK -->
 		<script src="script.js"></script>
+    <script>
+    if(Cookies.get("name")) {
+      $("#submit-name").val(Cookies.get("name"));
+    }
+    </script>
+
 	</body>
 </html>

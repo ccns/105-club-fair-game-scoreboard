@@ -1,4 +1,6 @@
 var expanded = false;
+var users = [];
+var problems = [];
 
 $.ajax({
   type: "GET",
@@ -25,6 +27,8 @@ $.ajax({
       expanded = true;
     }
     $("#scoreboard").append(btnMore);
+    users = data;
+    if(problems) markSolvedByName(Cookies.get("name"));
   }
 });
 
@@ -38,7 +42,7 @@ $.ajax({
       if(i==0) continue;
       var d = data[i];
       var divType = $('<div class="type"></div>').text(d.typeName);
-      var divNo = $('<div class="no"></div>').text(d.no);
+      var divNo = $('<div class="no"></div>').text(d.type+'-'+d.no);
       var divTitle = $('<div class="title"></div>').text(d.title);
       var divScore = $('<div class="score"></div>').text(d.score);
       var divSolved = $('<div class="solved"></div>').text(d.solved);
@@ -49,12 +53,15 @@ $.ajax({
       var divBody = $('<div class="body"></div>').append(divType).append(divNo).append(divTitle).append(divScore).append(divSolved).append(divDetail);
       $("#problems").append(divBody);
     }
+    problems = data;
+    if(users) markSolvedByName(Cookies.get("name"));
   }
 });
 
 $("#submit-btn").click(function() {
   var name = $("#submit-name").val();
   var flag = $("#submit-flag").val();
+  Cookies.set("name", name);
 
   var data = {id: name, flag: flag};
 
@@ -93,6 +100,7 @@ $("#submit-btn").click(function() {
             $("#scoreboard").append(divBody);
           }
           sortScoreboard();
+          markSolved(data.solved);
         }
         $("#submit-btn").removeClass("btn-default");
         setInterval(resetSubmit, 3000);
@@ -131,5 +139,19 @@ function sortScoreboard() {
       else $(this).hide();
     });
     $("#scoreboard").append($("#more-btn"))
+  }
+}
+
+function markSolvedByName(name) {
+  var obj = $.grep(users, (e) => e.name==name)[0];
+  var solved = obj.solved;
+  markSolved(solved);
+}
+
+function markSolved(solved) {
+  $("#problems .body").removeClass("marked");
+  for(i in solved) {
+    var s = solved[i];
+    var e = $("#problems .body:contains("+s+")").addClass("marked");
   }
 }
