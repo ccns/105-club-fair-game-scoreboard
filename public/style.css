@@ -20,6 +20,7 @@ a, div, button {
 
 #scoreboard .name {
 	width: 100px;
+ overflow: hidden;
 }
 
 #submit #submit-flag {
