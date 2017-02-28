@@ -103,7 +103,7 @@ $("#submit-btn").click(function() {
           markSolved(data.solved);
         }
         $("#submit-btn").removeClass("btn-default");
-        setInterval(resetSubmit, 3000);
+        setTimeout(resetSubmit, 3000);
       }
     });
   } else {
